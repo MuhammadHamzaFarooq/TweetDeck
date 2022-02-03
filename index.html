@@ -29,7 +29,6 @@
         <div class="col">
             <h1 style=" font-family: 'Nosifer', cursive; font-size: 3rem; padding: 20px 0px; border-radius: 10px; background-color: rgba(220, 220, 220, 0.335) ; border-width: 5px;">TWEET DECK              
             </h1>
-
         </div>
 
     </div>
@@ -57,10 +56,8 @@
         </div>
         <div class="col" style="
             height: 100vh;
-            /* border: 2px solid black; */
             display: flex;
             flex-direction: column;
-            /* padding-top: 1rem; */
             padding: 0.5rem 2rem;
           ">
             <h1 style="
@@ -87,7 +84,6 @@
             <div class="row g-1">
                 <div class="col-md">
                     <div class="form-floating" style="text-align: right; margin-top: 10px">
-
                         <button type="button" class="btn btn-info" id="deleteAllPostBtn"
                             style="margin: 10px; width: 20%; color: white; padding: 20px 10px; border-radius: 15px; ">
                             Delete All Post
@@ -139,15 +135,14 @@
         let title = document.getElementById("title");
         let desc = document.getElementById("desc");
 
-        console.log(title, desc);
-
         if (title != "") {
             let newPost = { title: title.value, description: desc.value };
 
             axios
-                .post("https://first--server.herokuapp.com/post", newPost)
+                .post("https://tweet-deck-app.herokuapp.com/post", newPost)
                 .then((res) => {
                     console.log(res);
+                    getAllPosts()
                 })
                 .catch((e) => {
                     console.log(e);
@@ -164,7 +159,7 @@
 
     const getAllPosts = () => {
         axios
-            .get("https://first--server.herokuapp.com/posts")
+            .get("https://tweet-deck-app.herokuapp.com/posts")
             .then((res) => {
                 let html = "";
                 let data = res.data;
@@ -180,10 +175,6 @@
                     desc = data[key].description;
                     date = data[key].createdOn;
                     _id = data[key]._id;
-
-                    data.map((data, index) => {
-                        console.log(data, index)
-                    })
 
                     html += `
                 <tr>
@@ -212,8 +203,9 @@
     getAllPosts();
 
     const deleteAllPost = () => {
-        axios.get("localhost:3000/posts").then((res)=>{
+        axios.delete("https://tweet-deck-app.herokuapp.com/delete").then((res)=>{
             console.log(res)
+            getAllPosts();
         })
         .catch((e)=>{
             console.log(e)

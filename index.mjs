@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 let port = process.env.PORT || 3000;
-let URI = `mongodb+srv://atlas-monster:greek-Myth@cluster0.owvlg.mongodb.net/postDB?retryWrites=true&w=majority`;
+let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 mongoose
   .connect(URI)
